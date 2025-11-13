@@ -7,19 +7,10 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { BookOpen, FileText, Video, ImageIcon, Heart, Search, Filter } from "lucide-react"
-// import { archivesContent } from "@/lib/archives"
 import { AnimatedSection } from "@/components/animated-section"
 import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
-
-async function getArchives() {
-  try {
-    const response = await fetch('http://localhost:3000/api/archives', { cache: 'no-store' })
-    return response.ok ? await response.json() : []
-  } catch (error) {
-    return []
-  }
-}
+import { getArchives } from "@/lib/data"
 
 export default async function ArchivesPage() {
   const archives = await getArchives()

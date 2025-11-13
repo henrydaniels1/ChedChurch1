@@ -4,24 +4,11 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calendar, Clock, MapPin } from "lucide-react"
-// import { programsContent } from "@/lib/programs"
 import { AnimatedSection } from "@/components/animated-section"
 import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 import Link from "next/link"
-
-async function getPrograms() {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL ? 'http://localhost:3000' : 'http://localhost:3000'}/api/programs`, {
-      cache: 'no-store'
-    })
-    if (!response.ok) return []
-    return await response.json()
-  } catch (error) {
-    console.error('Failed to fetch programs:', error)
-    return []
-  }
-}
+import { getPrograms } from "@/lib/data"
 
 export default async function ProgramsPage() {
   const programsContent = await getPrograms()

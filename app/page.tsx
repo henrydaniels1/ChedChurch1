@@ -9,18 +9,15 @@ import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 import { HeroSlideshow } from "@/components/hero-slideshow"
 import { WelcomeSection } from "@/components/sections/welcome-section"
 import { FeaturedProgramsSection } from "@/components/sections/featured-programs-section"
+import { getPrograms, getAnnouncements, getHomepageContent } from "@/lib/data"
 
 async function getHomeData() {
   try {
-    const [programsRes, announcementsRes, homepageRes] = await Promise.all([
-      fetch('http://localhost:3000/api/programs', { cache: 'no-store' }),
-      fetch('http://localhost:3000/api/announcements', { cache: 'no-store' }),
-      fetch('http://localhost:3000/api/homepage', { cache: 'no-store' })
+    const [programs, announcements, homepageData] = await Promise.all([
+      getPrograms(),
+      getAnnouncements(),
+      getHomepageContent()
     ])
-    
-    const programs = programsRes.ok ? await programsRes.json() : []
-    const announcements = announcementsRes.ok ? await announcementsRes.json() : []
-    const homepageData = homepageRes.ok ? await homepageRes.json() : []
     
     const content = homepageData.reduce((acc: any, item: any) => {
       acc[item.section] = item

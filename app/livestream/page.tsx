@@ -1,19 +1,18 @@
-"use client"
-
-import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { SectionHeader } from "@/components/section-header"
-import { Calendar, Clock, Play, Users, Wifi, WifiOff } from "lucide-react"
-import { livestreamContent } from "@/lib/livestream"
+import { Calendar, Clock, Users, Wifi, WifiOff } from "lucide-react"
 import { AnimatedSection } from "@/components/animated-section"
 import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
+import { getLivestreamData } from "@/lib/livestream-data"
+import { LivestreamClient } from "@/components/livestream-client"
 
-export default function LivestreamPage() {
-  const { title, description, streamUrl, schedule, isLive, nextService } = livestreamContent
-  const [isPlaying, setIsPlaying] = useState(false)
+export default async function LivestreamPage() {
+  const { settings, schedule, features } = await getLivestreamData()
+  const { title, description, streamUrl, isLive, nextService, heroImage, ctaTitle, ctaDescription } = settings
+
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -38,7 +37,7 @@ export default function LivestreamPage() {
       <section className="relative py-24 bg-secondary overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ParallaxImage
-            src="/placeholder.svg?height=400&width=1200"
+            src={heroImage || "/placeholder.svg?height=400&width=1200"}
             alt="Church livestream setup"
             className="w-full h-full opacity-30"
             intensity={0.2}
@@ -70,54 +69,7 @@ export default function LivestreamPage() {
       <section className="py-16 bg-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection direction="fade" delay={0.3}>
-            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-0">
-                <div className="relative aspect-video bg-black">
-                  {isPlaying ? (
-                    <iframe
-                      src={streamUrl}
-                      title="Church Livestream"
-                      className="w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div
-                        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                        style={{
-                          backgroundImage: `url(/placeholder.svg?height=600&width=1200&query=Nigerian church sanctuary worship service live streaming)`,
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
-                      <div className="relative text-center text-white">
-                        <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm hover:scale-110 transition-transform duration-300">
-                          <Play className="w-10 h-10 text-white ml-1" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2">
-                          {isLive ? "Live Service Available" : "Service Not Currently Live"}
-                        </h3>
-                        <p className="text-white/80 mb-6">
-                          {isLive
-                            ? "Click to join our live worship service"
-                            : "Check our schedule below for upcoming services"}
-                        </p>
-                        {isLive && (
-                          <Button
-                            onClick={() => setIsPlaying(true)}
-                            size="lg"
-                            className="bg-white text-primary hover:bg-white/90 transform hover:scale-105 transition-all duration-300"
-                          >
-                            <Play className="w-5 h-5 mr-2" />
-                            Watch Live
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            <LivestreamClient streamUrl={streamUrl} isLive={isLive} />
           </AnimatedSection>
 
           {/* Live Status and Next Service */}
@@ -255,56 +207,26 @@ export default function LivestreamPage() {
           </AnimatedSection>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <StaggerItem
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-              }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
-                <Wifi className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-serif text-xl font-semibold mb-3">High Quality Stream</h3>
-              <p className="text-muted-foreground">
-                Crystal clear video and audio quality ensures you don't miss a moment of worship.
-              </p>
-            </StaggerItem>
-
-            <StaggerItem
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-              }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
-                <Users className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-serif text-xl font-semibold mb-3">Interactive Community</h3>
-              <p className="text-muted-foreground">
-                Connect with other viewers and participate in our online community during services.
-              </p>
-            </StaggerItem>
-
-            <StaggerItem
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-              }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
-                <Calendar className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-serif text-xl font-semibold mb-3">Never Miss a Service</h3>
-              <p className="text-muted-foreground">
-                Can't make it in person? Join us online and be part of our worship community from anywhere.
-              </p>
-            </StaggerItem>
+            {features.map((feature: any, index: number) => {
+              const IconComponent = feature.icon === 'Users' ? Users : feature.icon === 'Calendar' ? Calendar : Wifi
+              return (
+                <StaggerItem
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+                  }}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  className="text-center"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </StaggerItem>
+              )
+            })}
           </StaggerContainer>
         </div>
       </section>
@@ -313,9 +235,9 @@ export default function LivestreamPage() {
       <AnimatedSection>
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">Join Us In Person Too!</h2>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">{ctaTitle || "Join Us In Person Too!"}</h2>
             <p className="text-xl mb-8 text-primary-foreground/90">
-              While we love having you online, we'd also love to meet you in person. Come visit us anytime!
+              {ctaDescription || "While we love having you online, we'd also love to meet you in person. Come visit us anytime!"}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button

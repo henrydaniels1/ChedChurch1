@@ -11,6 +11,7 @@ import { AnnouncementsManager } from "@/components/admin/announcements-manager"
 import { LeadershipManager } from "@/components/admin/leadership-manager"
 import { ArchivesManager } from "@/components/admin/archives-manager"
 import { HomepageManager } from "@/components/admin/homepage-manager"
+import { LivestreamManager } from "@/components/admin/livestream-manager"
 
 export default function AdminDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -46,11 +47,12 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs defaultValue="homepage" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="homepage">Homepage</TabsTrigger>
             <TabsTrigger value="programs">Programs</TabsTrigger>
             <TabsTrigger value="announcements">Announcements</TabsTrigger>
             <TabsTrigger value="leadership">Leadership</TabsTrigger>
+            <TabsTrigger value="livestream">Livestream</TabsTrigger>
             <TabsTrigger value="archives">Archives</TabsTrigger>
           </TabsList>
 
@@ -68,6 +70,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="leadership">
             <LeadershipManager />
+          </TabsContent>
+
+          <TabsContent value="livestream">
+            <LivestreamManager />
           </TabsContent>
 
           <TabsContent value="archives">
