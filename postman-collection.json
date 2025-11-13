@@ -1,0 +1,186 @@
+{
+  "info": {
+    "name": "Church Website API",
+    "description": "API endpoints for Peace Chapel Church website",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Programs",
+      "item": [
+        {
+          "name": "Get All Programs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/programs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "programs"]
+            }
+          }
+        },
+        {
+          "name": "Create Program",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sunday Service\",\n  \"description\": \"Weekly worship service\",\n  \"day\": \"Sunday\",\n  \"time\": \"10:00 AM\",\n  \"location\": \"Main Sanctuary\",\n  \"category\": \"worship\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/programs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "programs"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Announcements",
+      "item": [
+        {
+          "name": "Get All Announcements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "announcements"]
+            }
+          }
+        },
+        {
+          "name": "Create Announcement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Christmas Service\",\n  \"content\": \"Join us for our special Christmas service\",\n  \"date\": \"2024-12-25\",\n  \"priority\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "announcements"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leadership",
+      "item": [
+        {
+          "name": "Get All Leadership",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leadership",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leadership"]
+            }
+          }
+        },
+        {
+          "name": "Create Leadership Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pastor John Smith\",\n  \"position\": \"Senior Pastor\",\n  \"bio\": \"Pastor John has been serving our community for over 15 years\",\n  \"image\": \"https://example.com/pastor-john.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/leadership",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leadership"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Archives",
+      "item": [
+        {
+          "name": "Get All Archives",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/archives",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "archives"]
+            }
+          }
+        },
+        {
+          "name": "Get Archives by Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/archives?type=video",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "archives"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "video"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Archive Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Sunday Service Recording\",\n  \"description\": \"Recording of our Sunday worship service\",\n  \"date\": \"2024-01-15\",\n  \"type\": \"video\",\n  \"url\": \"https://youtube.com/watch?v=example\",\n  \"thumbnail\": \"https://example.com/thumbnail.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/archives",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "archives"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

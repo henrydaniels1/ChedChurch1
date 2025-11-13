@@ -1,0 +1,148 @@
+import type { Program } from "./types"
+
+export const programsContent: Program[] = [
+  // Sunday Services
+  {
+    id: "early-worship",
+    name: "Early Worship Service",
+    description: "Traditional worship service with hymns and organ music in an intimate setting.",
+    day: "Sunday",
+    time: "8:30 AM",
+    location: "Chapel",
+    category: "worship",
+  },
+  {
+    id: "main-worship",
+    name: "Main Worship Service",
+    description: "Contemporary worship with full band, inspiring messages, and community fellowship.",
+    day: "Sunday",
+    time: "10:00 AM",
+    location: "Main Sanctuary",
+    category: "worship",
+  },
+  {
+    id: "evening-service",
+    name: "Evening Service",
+    description: "Casual worship service with acoustic music and interactive teaching.",
+    day: "Sunday",
+    time: "6:00 PM",
+    location: "Fellowship Hall",
+    category: "worship",
+  },
+
+  // Children's Programs
+  {
+    id: "sunday-school-kids",
+    name: "Children's Sunday School",
+    description: "Age-appropriate Bible lessons, crafts, and activities for children ages 3-12.",
+    day: "Sunday",
+    time: "9:00 AM",
+    location: "Children's Wing",
+    category: "children",
+  },
+  {
+    id: "kids-club",
+    name: "Kids Club",
+    description: "Midweek program with games, Bible stories, and snacks for elementary age children.",
+    day: "Wednesday",
+    time: "6:00 PM",
+    location: "Children's Wing",
+    category: "children",
+  },
+
+  // Youth Programs
+  {
+    id: "youth-sunday-school",
+    name: "Youth Sunday School",
+    description: "Interactive Bible study and discussion for teenagers ages 13-18.",
+    day: "Sunday",
+    time: "9:00 AM",
+    location: "Youth Center",
+    category: "youth",
+  },
+  {
+    id: "youth-group",
+    name: "Youth Group",
+    description: "Fun activities, worship, Bible study, and fellowship for teens.",
+    day: "Wednesday",
+    time: "6:30 PM",
+    location: "Youth Center",
+    category: "youth",
+  },
+  {
+    id: "youth-service",
+    name: "Youth Service Projects",
+    description: "Monthly community service opportunities for youth to serve others.",
+    day: "Saturday",
+    time: "9:00 AM",
+    location: "Various Locations",
+    category: "youth",
+  },
+
+  // Adult Programs
+  {
+    id: "adult-sunday-school",
+    name: "Adult Sunday School",
+    description: "Multiple classes covering various topics including Bible study, theology, and Christian living.",
+    day: "Sunday",
+    time: "9:00 AM",
+    location: "Classrooms 1-4",
+    category: "adult",
+  },
+  {
+    id: "bible-study",
+    name: "Midweek Bible Study",
+    description: "In-depth study of Scripture with discussion and prayer time.",
+    day: "Thursday",
+    time: "7:00 PM",
+    location: "Fellowship Hall",
+    category: "adult",
+  },
+  {
+    id: "mens-breakfast",
+    name: "Men's Breakfast",
+    description: "Monthly fellowship breakfast with devotion and discussion for men of all ages.",
+    day: "Saturday",
+    time: "8:00 AM",
+    location: "Fellowship Hall",
+    category: "adult",
+  },
+  {
+    id: "womens-circle",
+    name: "Women's Circle",
+    description: "Weekly gathering for women featuring Bible study, prayer, and fellowship.",
+    day: "Tuesday",
+    time: "10:00 AM",
+    location: "Conference Room",
+    category: "adult",
+  },
+
+  // Special Programs
+  {
+    id: "prayer-meeting",
+    name: "Prayer Meeting",
+    description: "Weekly gathering focused on prayer for our church, community, and world.",
+    day: "Wednesday",
+    time: "7:00 PM",
+    location: "Prayer Room",
+    category: "special",
+  },
+  {
+    id: "seniors-fellowship",
+    name: "Seniors Fellowship",
+    description: "Monthly social gathering with lunch, games, and fellowship for seniors 65+.",
+    day: "Friday",
+    time: "12:00 PM",
+    location: "Fellowship Hall",
+    category: "special",
+  },
+  {
+    id: "community-outreach",
+    name: "Community Outreach",
+    description: "Weekly volunteer opportunities to serve our local community.",
+    day: "Saturday",
+    time: "10:00 AM",
+    location: "Community Center",
+    category: "special",
+  },
+]
