@@ -9,7 +9,7 @@ export async function GET() {
       supabase.from('livestream_features').select('*').order('created_at')
     ])
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       settings: settingsRes.data || {
         title: "Join Us Online",
         description: "Can't make it to church in person? Join us online for live worship services and special events.",
@@ -27,6 +27,8 @@ export async function GET() {
       schedule: scheduleRes.data || [],
       features: featuresRes.data || []
     })
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate')
+    return response
   } catch (error: any) {
     console.error('Error fetching livestream data:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })

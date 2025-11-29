@@ -11,7 +11,9 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  return NextResponse.json(data)
+  const response = NextResponse.json(data)
+  response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate')
+  return response
 }
 
 export async function POST(request: NextRequest) {

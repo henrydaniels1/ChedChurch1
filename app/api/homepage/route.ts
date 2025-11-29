@@ -12,7 +12,9 @@ export async function GET() {
       // Return empty array as fallback
       return NextResponse.json([])
     }
-    return NextResponse.json(data || [])
+    const response = NextResponse.json(data || [])
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate')
+    return response
   } catch (error: any) {
     console.error('Homepage API error:', error)
     return NextResponse.json([], { status: 200 }) // Return empty array instead of error

@@ -17,7 +17,9 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query.order('date', { ascending: false })
 
     if (error) throw error
-    return NextResponse.json(data || [])
+    const response = NextResponse.json(data || [])
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate')
+    return response
   } catch (error: any) {
     return NextResponse.json([])
   }

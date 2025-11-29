@@ -23,7 +23,10 @@ export function HeroSlideshow() {
 
   const fetchSlides = async () => {
     try {
-      const response = await fetch('/api/hero-slides')
+      const response = await fetch('/api/hero-slides', {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      })
       if (response.ok) {
         const data = await response.json()
         setSlides(data)

@@ -9,7 +9,9 @@ export async function GET() {
       .order('created_at', { ascending: false })
 
     if (error) throw error
-    return NextResponse.json(data || [])
+    const response = NextResponse.json(data || [])
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate')
+    return response
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }

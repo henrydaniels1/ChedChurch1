@@ -15,7 +15,9 @@ export async function GET() {
       .order('order_index', { ascending: true })
 
     if (error) throw error
-    return NextResponse.json(data || [])
+    const response = NextResponse.json(data || [])
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate')
+    return response
   } catch (error: any) {
     // Return empty array instead of error to prevent frontend crashes
     return NextResponse.json([])

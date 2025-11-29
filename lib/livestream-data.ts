@@ -1,7 +1,8 @@
 export async function getLivestreamData() {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/livestream`, {
-      cache: 'no-store'
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' }
     })
     
     if (!response.ok) {
