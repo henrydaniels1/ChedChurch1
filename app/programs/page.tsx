@@ -11,7 +11,14 @@ import Link from "next/link"
 import { getPrograms } from "@/lib/data"
 
 export default async function ProgramsPage() {
-  const programsContent = await getPrograms()
+  let programsContent = []
+  
+  try {
+    programsContent = await getPrograms()
+  } catch (error) {
+    console.error('Failed to load programs:', error)
+    // Continue with empty array
+  }
   // Group programs by category
   const programsByCategory = programsContent.reduce(
     (acc, program) => {

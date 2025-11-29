@@ -13,7 +13,14 @@ import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 import { getArchives } from "@/lib/data"
 
 export default async function ArchivesPage() {
-  const archives = await getArchives()
+  let archives = []
+  
+  try {
+    archives = await getArchives()
+  } catch (error) {
+    console.error('Failed to load archives:', error)
+    // Continue with empty array
+  }
 
   return (
     <div className="min-h-screen">
