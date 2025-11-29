@@ -3,23 +3,27 @@ import { supabase } from '@/lib/supabase'
 
 export async function GET() {
   try {
-    // Check if we have valid Supabase credentials
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
-      return NextResponse.json([])
-    }
-
+    console.log('Hero slides API called')
+    console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL)
+    
     const { data, error } = await supabase
       .from('hero_slides')
       .select('*')
       .eq('is_active', true)
       .order('order_index', { ascending: true })
 
-    if (error) throw error
+    console.log('Supabase response:', { data, error })
+    
+    if (error) {
+      console.error('Supabase error:', error)
+      throw error
+    }
+    
     const response = NextResponse.json(data || [])
     response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate')
     return response
   } catch (error: any) {
-    // Return empty array instead of error to prevent frontend crashes
+    console.error('API error:', error)
     return NextResponse.json([])
   }
 }
