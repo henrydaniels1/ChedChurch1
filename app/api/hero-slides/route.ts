@@ -3,6 +3,11 @@ import { supabase } from '@/lib/supabase'
 
 export async function GET() {
   try {
+    // Check if we have valid Supabase credentials
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
+      return NextResponse.json([])
+    }
+
     const { data, error } = await supabase
       .from('hero_slides')
       .select('*')
@@ -12,7 +17,8 @@ export async function GET() {
     if (error) throw error
     return NextResponse.json(data || [])
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    // Return empty array instead of error to prevent frontend crashes
+    return NextResponse.json([])
   }
 }
 

@@ -2,16 +2,21 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 export async function GET() {
-  const { data, error } = await supabase
-    .from('announcements')
-    .select('*')
-    .order('date', { ascending: false })
+  try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
+      return NextResponse.json([])
+    }
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    const { data, error } = await supabase
+      .from('announcements')
+      .select('*')
+      .order('date', { ascending: false })
+
+    if (error) throw error
+    return NextResponse.json(data || [])
+  } catch (error: any) {
+    return NextResponse.json([])
   }
-
-  return NextResponse.json(data)
 }
 
 export async function POST(request: NextRequest) {

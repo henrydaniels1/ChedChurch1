@@ -2,22 +2,25 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url)
-  const type = searchParams.get('type') || 'all'
+  try {
 
-  let query = supabase.from('archives').select('*')
-  
-  if (type !== 'all') {
-    query = query.eq('type', type)
+
+    const { searchParams } = new URL(request.url)
+    const type = searchParams.get('type') || 'all'
+
+    let query = supabase.from('archives').select('*')
+    
+    if (type !== 'all') {
+      query = query.eq('type', type)
+    }
+
+    const { data, error } = await query.order('date', { ascending: false })
+
+    if (error) throw error
+    return NextResponse.json(data || [])
+  } catch (error: any) {
+    return NextResponse.json([])
   }
-
-  const { data, error } = await query.order('date', { ascending: false })
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
-
-  return NextResponse.json(data)
 }
 
 export async function POST(request: NextRequest) {
