@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Trash2, Plus, Save, Wifi, WifiOff } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { DatabaseStatus } from "@/components/admin/database-status"
+import { apiUrl } from "@/lib/api"
 
 interface LivestreamSettings {
   title: string
@@ -70,7 +71,7 @@ export function LivestreamManager() {
 
   const loadLivestreamData = async () => {
     try {
-      const response = await fetch('/api/livestream')
+      const response = await fetch(apiUrl('/api/livestream'))
       if (!response.ok) throw new Error('Failed to fetch data')
       
       const data = await response.json()
@@ -107,7 +108,7 @@ export function LivestreamManager() {
   const saveSettings = async () => {
     setSaving(true)
     try {
-      const response = await fetch('/api/livestream', {
+      const response = await fetch(apiUrl('/api/livestream'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

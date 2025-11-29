@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Pencil, Trash2 } from "lucide-react"
 import { SearchFilter } from "@/components/admin/search-filter"
 import { FileUpload } from "@/components/admin/file-upload"
+import { apiUrl } from "@/lib/api"
 
 export function ProgramsManager() {
   const [programs, setPrograms] = useState([])
@@ -25,7 +26,7 @@ export function ProgramsManager() {
   })
 
   const fetchPrograms = async () => {
-    const response = await fetch("/api/programs")
+    const response = await fetch(apiUrl("/api/programs"))
     const data = await response.json()
     setPrograms(data)
     setFilteredPrograms(data)
@@ -53,7 +54,7 @@ export function ProgramsManager() {
     const method = editingId ? "PUT" : "POST"
     const body = editingId ? { id: editingId, ...formData } : formData
     
-    const response = await fetch("/api/programs", {
+    const response = await fetch(apiUrl("/api/programs"), {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
@@ -81,7 +82,7 @@ export function ProgramsManager() {
 
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this program?')) {
-      const response = await fetch(`/api/programs?id=${id}`, {
+      const response = await fetch(apiUrl(`/api/programs?id=${id}`), {
         method: "DELETE"
       })
       if (response.ok) {

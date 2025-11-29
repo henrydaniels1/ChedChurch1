@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { apiUrl } from "@/lib/api"
 
 interface Slide {
   id: string
@@ -23,7 +24,7 @@ export function HeroSlideshow() {
 
   const fetchSlides = async () => {
     try {
-      const response = await fetch('/api/hero-slides', {
+      const response = await fetch(apiUrl('/api/hero-slides'), {
         cache: 'no-store',
         headers: { 'Cache-Control': 'no-cache' }
       })

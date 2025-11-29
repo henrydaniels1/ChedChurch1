@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { apiUrl } from "@/lib/api"
 
 export function AnnouncementsManager() {
   const [announcements, setAnnouncements] = useState([])
@@ -17,14 +18,14 @@ export function AnnouncementsManager() {
   })
 
   const fetchAnnouncements = async () => {
-    const response = await fetch("/api/announcements")
+    const response = await fetch(apiUrl("/api/announcements"))
     const data = await response.json()
     setAnnouncements(data)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const response = await fetch("/api/announcements", {
+    const response = await fetch(apiUrl("/api/announcements"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)

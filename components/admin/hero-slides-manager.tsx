@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { FileUpload } from "@/components/admin/file-upload"
 import { Pencil, Trash2, Plus } from "lucide-react"
+import { apiUrl } from "@/lib/api"
 
 export function HeroSlidesManager() {
   const [slides, setSlides] = useState([])
@@ -23,7 +24,7 @@ export function HeroSlidesManager() {
   })
 
   const fetchSlides = async () => {
-    const response = await fetch("/api/hero-slides")
+    const response = await fetch(apiUrl("/api/hero-slides"))
     const data = await response.json()
     setSlides(data)
   }
@@ -33,7 +34,7 @@ export function HeroSlidesManager() {
     const method = editingId ? "PUT" : "POST"
     const body = editingId ? { id: editingId, ...formData } : formData
     
-    const response = await fetch("/api/hero-slides", {
+    const response = await fetch(apiUrl("/api/hero-slides"), {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
@@ -63,7 +64,7 @@ export function HeroSlidesManager() {
 
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this slide?')) {
-      const response = await fetch(`/api/hero-slides?id=${id}`, {
+      const response = await fetch(apiUrl(`/api/hero-slides?id=${id}`), {
         method: "DELETE"
       })
       if (response.ok) {

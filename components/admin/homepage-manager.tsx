@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { FileUpload } from "@/components/admin/file-upload"
 import { HeroSlidesManager } from "@/components/admin/hero-slides-manager"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { apiUrl } from "@/lib/api"
 
 export function HomepageManager() {
   const [content, setContent] = useState<any>({})
@@ -15,7 +16,7 @@ export function HomepageManager() {
 
   const fetchContent = async () => {
     try {
-      const response = await fetch("/api/homepage")
+      const response = await fetch(apiUrl("/api/homepage"))
       if (!response.ok) {
         throw new Error('Failed to fetch homepage content')
       }
@@ -42,7 +43,7 @@ export function HomepageManager() {
     setLoading(true)
     const updatedSection = { ...content[section], [field]: value }
     
-    const response = await fetch("/api/homepage", {
+    const response = await fetch(apiUrl("/api/homepage"), {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedSection)

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { apiUrl } from "@/lib/api"
 
 export function ArchivesManager() {
   const [archives, setArchives] = useState([])
@@ -19,14 +20,14 @@ export function ArchivesManager() {
   })
 
   const fetchArchives = async () => {
-    const response = await fetch("/api/archives")
+    const response = await fetch(apiUrl("/api/archives"))
     const data = await response.json()
     setArchives(data)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const response = await fetch("/api/archives", {
+    const response = await fetch(apiUrl("/api/archives"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)
