@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
 import { Trash2, Plus, Save, Wifi, WifiOff } from "lucide-react"
 import { supabase } from "@/lib/supabase"
+import { DatabaseStatus } from "@/components/admin/database-status"
 
 interface LivestreamSettings {
   title: string
@@ -43,20 +44,20 @@ interface StreamFeature {
 
 export function LivestreamManager() {
   const [settings, setSettings] = useState<LivestreamSettings>({
-    title: "",
-    description: "",
-    streamUrl: "",
+    title: "Join Us Online",
+    description: "Can't make it to church in person? Join us online for live worship services and special events.",
+    streamUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     isLive: false,
-    heroImage: "",
-    ctaTitle: "",
-    ctaDescription: ""
+    heroImage: "/placeholder.svg?height=400&width=1200",
+    ctaTitle: "Join Us In Person Too!",
+    ctaDescription: "While we love having you online, we'd also love to meet you in person. Come visit us anytime!"
   })
   
   const [schedule, setSchedule] = useState<ServiceSchedule[]>([])
   const [nextService, setNextService] = useState<NextService>({
-    date: "",
-    time: "",
-    service: ""
+    date: "2024-04-07",
+    time: "10:00",
+    service: "Sunday Worship Service"
   })
   
   const [features, setFeatures] = useState<StreamFeature[]>([])
@@ -75,7 +76,15 @@ export function LivestreamManager() {
       const data = await response.json()
       
       if (data.settings) {
-        setSettings(data.settings)
+        setSettings({
+          title: data.settings.title || 'Join Us Online',
+          description: data.settings.description || '',
+          streamUrl: data.settings.stream_url || '',
+          isLive: data.settings.is_live || false,
+          heroImage: data.settings.hero_image || '',
+          ctaTitle: data.settings.cta_title || '',
+          ctaDescription: data.settings.cta_description || ''
+        })
         if (data.settings.next_service) {
           setNextService(data.settings.next_service)
         }
@@ -102,64 +111,32 @@ export function LivestreamManager() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type: 'settings',
-          data: { ...settings, next_service: nextService }
+          title: settings.title,
+          description: settings.description,
+          stream_url: settings.streamUrl,
+          is_live: settings.isLive,
+          hero_image: settings.heroImage,
+          cta_title: settings.ctaTitle,
+          cta_description: settings.ctaDescription,
+          next_service: nextService
         })
       })
       
-      if (!response.ok) throw new Error('Failed to save settings')
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to save settings')
+      }
+      
       alert('Settings saved successfully!')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving settings:', error)
-      alert('Error saving settings')
+      alert(`Error saving settings: ${error.message}`)
     } finally {
       setSaving(false)
     }
   }
 
-  const saveSchedule = async () => {
-    setSaving(true)
-    try {
-      const response = await fetch('/api/livestream', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'schedule',
-          data: schedule.map(item => ({ ...item, id: undefined }))
-        })
-      })
-      
-      if (!response.ok) throw new Error('Failed to save schedule')
-      alert('Schedule saved successfully!')
-    } catch (error) {
-      console.error('Error saving schedule:', error)
-      alert('Error saving schedule')
-    } finally {
-      setSaving(false)
-    }
-  }
 
-  const saveFeatures = async () => {
-    setSaving(true)
-    try {
-      const response = await fetch('/api/livestream', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'features',
-          data: features.map(item => ({ ...item, id: undefined }))
-        })
-      })
-      
-      if (!response.ok) throw new Error('Failed to save features')
-      alert('Features saved successfully!')
-    } catch (error) {
-      console.error('Error saving features:', error)
-      alert('Error saving features')
-    } finally {
-      setSaving(false)
-    }
-  }
 
   const addScheduleItem = () => {
     setSchedule([...schedule, { day: "", time: "", service: "" }])
@@ -193,6 +170,7 @@ export function LivestreamManager() {
 
   return (
     <div className="space-y-6">
+      <DatabaseStatus />
       {/* Stream Settings */}
       <Card>
         <CardHeader>
@@ -220,9 +198,22 @@ export function LivestreamManager() {
               <Input
                 id="streamUrl"
                 value={settings.streamUrl}
-                onChange={(e) => setSettings({...settings, streamUrl: e.target.value})}
-                placeholder="https://www.youtube.com/embed/..."
+                onChange={(e) => {
+                  let url = e.target.value
+                  // Auto-convert YouTube URLs to embed format
+                  if (url.includes('youtube.com/live/') || url.includes('youtube.com/watch?v=')) {
+                    const videoId = url.match(/(?:live\/|watch\?v=)([a-zA-Z0-9_-]+)/)?.[1]
+                    if (videoId) {
+                      url = `https://www.youtube.com/embed/${videoId}`
+                    }
+                  }
+                  setSettings({...settings, streamUrl: url})
+                }}
+                placeholder="https://www.youtube.com/embed/VIDEO_ID or paste any YouTube URL"
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                Paste any YouTube URL (live or regular) and it will be auto-converted to embed format
+              </p>
             </div>
           </div>
           
@@ -349,9 +340,9 @@ export function LivestreamManager() {
               <Plus className="w-4 h-4 mr-2" />
               Add Service
             </Button>
-            <Button onClick={saveSchedule} disabled={saving}>
+            <Button disabled>
               <Save className="w-4 h-4 mr-2" />
-              Save Schedule
+              Save Schedule (Coming Soon)
             </Button>
           </div>
         </CardContent>
@@ -405,9 +396,9 @@ export function LivestreamManager() {
               <Plus className="w-4 h-4 mr-2" />
               Add Feature
             </Button>
-            <Button onClick={saveFeatures} disabled={saving}>
+            <Button disabled>
               <Save className="w-4 h-4 mr-2" />
-              Save Features
+              Save Features (Coming Soon)
             </Button>
           </div>
         </CardContent>

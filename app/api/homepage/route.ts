@@ -12,10 +12,15 @@ export async function GET() {
       .from('homepage_content')
       .select('*')
 
-    if (error) throw error
+    if (error) {
+      console.error('Supabase error:', error)
+      // Return empty array as fallback
+      return NextResponse.json([])
+    }
     return NextResponse.json(data || [])
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('Homepage API error:', error)
+    return NextResponse.json([], { status: 200 }) // Return empty array instead of error
   }
 }
 

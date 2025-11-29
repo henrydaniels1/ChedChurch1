@@ -1,97 +1,92 @@
 import { NextRequest, NextResponse } from "next/server"
-import { supabase } from "@/lib/supabase"
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 export async function GET() {
   try {
     const [settingsRes, scheduleRes, featuresRes] = await Promise.all([
-      supabase.from('livestream_settings').select('*').single(),
+      supabase.from('livestream_settings').select('*').limit(1).single(),
       supabase.from('livestream_schedule').select('*').order('day'),
-      supabase.from('livestream_features').select('*').order('id')
+      supabase.from('livestream_features').select('*').order('created_at')
     ])
 
     return NextResponse.json({
       settings: settingsRes.data || {
         title: "Join Us Online",
         description: "Can't make it to church in person? Join us online for live worship services and special events.",
-        streamUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        isLive: false,
-        heroImage: "/placeholder.svg?height=400&width=1200",
-        ctaTitle: "Join Us In Person Too!",
-        ctaDescription: "While we love having you online, we'd also love to meet you in person. Come visit us anytime!",
+        stream_url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        is_live: false,
+        hero_image: "/placeholder.svg?height=400&width=1200",
+        cta_title: "Join Us In Person Too!",
+        cta_description: "While we love having you online, we'd also love to meet you in person. Come visit us anytime!",
         next_service: {
           date: "2024-04-07",
           time: "10:00 AM",
           service: "Sunday Worship Service"
         }
       },
-      schedule: scheduleRes.data || [
-        { day: "Sunday", time: "10:00 AM", service: "Main Worship Service" },
-        { day: "Sunday", time: "6:00 PM", service: "Evening Service" },
-        { day: "Wednesday", time: "7:00 PM", service: "Prayer Meeting" },
-        { day: "Thursday", time: "7:00 PM", service: "Bible Study" }
-      ],
-      features: featuresRes.data || [
-        {
-          title: "High Quality Stream",
-          description: "Crystal clear video and audio quality ensures you don't miss a moment of worship.",
-          icon: "Wifi"
-        },
-        {
-          title: "Interactive Community",
-          description: "Connect with other viewers and participate in our online community during services.",
-          icon: "Users"
-        },
-        {
-          title: "Never Miss a Service",
-          description: "Can't make it in person? Join us online and be part of our worship community from anywhere.",
-          icon: "Calendar"
-        }
-      ]
+      schedule: scheduleRes.data || [],
+      features: featuresRes.data || []
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching livestream data:', error)
-    return NextResponse.json({ error: 'Failed to fetch livestream data' }, { status: 500 })
+    return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { type, data } = await request.json()
-
-    switch (type) {
-      case 'settings':
-        const { error: settingsError } = await supabase
-          .from('livestream_settings')
-          .upsert(data)
-        
-        if (settingsError) throw settingsError
-        break
-
-      case 'schedule':
-        await supabase.from('livestream_schedule').delete().neq('id', 0)
-        const { error: scheduleError } = await supabase
-          .from('livestream_schedule')
-          .insert(data)
-        
-        if (scheduleError) throw scheduleError
-        break
-
-      case 'features':
-        await supabase.from('livestream_features').delete().neq('id', 0)
-        const { error: featuresError } = await supabase
-          .from('livestream_features')
-          .insert(data)
-        
-        if (featuresError) throw featuresError
-        break
-
-      default:
-        return NextResponse.json({ error: 'Invalid type' }, { status: 400 })
+    const body = await request.json()
+    
+    // Handle settings update/insert
+    const { data: existingSettings } = await supabase
+      .from('livestream_settings')
+      .select('id')
+      .limit(1)
+      .single()
+    
+    if (existingSettings) {
+      const { data, error } = await supabase
+        .from('livestream_settings')
+        .update(body)
+        .eq('id', existingSettings.id)
+        .select()
+      
+      if (error) throw error
+      return NextResponse.json(data[0])
+    } else {
+      const { data, error } = await supabase
+        .from('livestream_settings')
+        .insert([body])
+        .select()
+      
+      if (error) throw error
+      return NextResponse.json(data[0], { status: 201 })
     }
-
-    return NextResponse.json({ success: true })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating livestream data:', error)
-    return NextResponse.json({ error: 'Failed to update livestream data' }, { status: 500 })
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const body = await request.json()
+    const { id, ...updateData } = body
+    
+    const { data, error } = await supabase
+      .from('livestream_settings')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+
+    if (error) throw error
+    return NextResponse.json(data[0])
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

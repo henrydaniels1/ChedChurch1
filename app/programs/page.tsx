@@ -157,6 +157,7 @@ export default async function ProgramsPage() {
 
           <div className="space-y-16">
             {Object.entries(programsByCategory).map(([category, programs], categoryIndex) => {
+              const typedPrograms = programs as typeof programsContent
               const info = categoryInfo[category as keyof typeof categoryInfo]
               return (
                 <AnimatedSection key={category} id={category} delay={categoryIndex * 0.1}>
@@ -165,7 +166,7 @@ export default async function ProgramsPage() {
                       <div className="flex items-center space-x-3 mb-4">
                         <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">{info.title}</h2>
                         <Badge variant="secondary" className="text-sm">
-                          {programs.length} programs
+                          {typedPrograms.length} programs
                         </Badge>
                       </div>
                       <p className="text-muted-foreground text-lg">{info.description}</p>
@@ -176,7 +177,7 @@ export default async function ProgramsPage() {
                   </div>
 
                   <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {programs.map((program, index) => (
+                    {typedPrograms.map((program, index) => (
                       <StaggerItem
                         key={program.id}
                         variants={{
@@ -249,7 +250,7 @@ export default async function ProgramsPage() {
                     </CardHeader>
                     <CardContent className="p-0">
                       <div className="divide-y divide-border">
-                        {dayPrograms
+                        {(dayPrograms as typeof programsContent)
                           .sort((a, b) => {
                             // Sort by time
                             const timeA = new Date(`1970/01/01 ${a.time}`).getTime()

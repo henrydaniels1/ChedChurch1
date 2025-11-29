@@ -14,13 +14,28 @@ export function HomepageManager() {
   const [loading, setLoading] = useState(false)
 
   const fetchContent = async () => {
-    const response = await fetch("/api/homepage")
-    const data = await response.json()
-    const contentObj = data.reduce((acc: any, item: any) => {
-      acc[item.section] = item
-      return acc
-    }, {})
-    setContent(contentObj)
+    try {
+      const response = await fetch("/api/homepage")
+      if (!response.ok) {
+        throw new Error('Failed to fetch homepage content')
+      }
+      const data = await response.json()
+      
+      // Handle case where data might not be an array
+      if (Array.isArray(data)) {
+        const contentObj = data.reduce((acc: any, item: any) => {
+          acc[item.section] = item
+          return acc
+        }, {})
+        setContent(contentObj)
+      } else {
+        console.error('Homepage API did not return an array:', data)
+        setContent({})
+      }
+    } catch (error) {
+      console.error('Error fetching homepage content:', error)
+      setContent({})
+    }
   }
 
   const handleUpdate = async (section: string, field: string, value: string) => {
