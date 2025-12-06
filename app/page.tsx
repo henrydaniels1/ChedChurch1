@@ -108,7 +108,7 @@ export default async function HomePage() {
                   transition: { duration: 0.2 },
                 }}
               >
-                <Card className="hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
+                <Card className="hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] border border-border/50 shadow-lg bg-card/80 backdrop-blur-sm">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
                       <CardTitle className="font-serif text-lg">{announcement.title}</CardTitle>
@@ -137,6 +137,12 @@ export default async function HomePage() {
               </StaggerItem>
             ))}
           </StaggerContainer>
+
+          <AnimatedSection className="text-center mt-8">
+            <Button asChild size="lg" variant="outline">
+              <Link href="/announcements">View All Announcements</Link>
+            </Button>
+          </AnimatedSection>
         </div>
       </section>
 

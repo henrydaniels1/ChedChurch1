@@ -11,11 +11,11 @@ interface ProgramCardProps {
 }
 
 const categoryColors = {
-  worship: "bg-primary/10 text-primary border-primary/20",
-  youth: "bg-accent/10 text-accent border-accent/20",
-  children: "bg-green-100 text-green-700 border-green-200",
-  adult: "bg-blue-100 text-blue-700 border-blue-200",
-  special: "bg-purple-100 text-purple-700 border-purple-200",
+  worship: "bg-primary/15 text-primary border-primary/30",
+  youth: "bg-accent/15 text-accent border-accent/30",
+  children: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+  adult: "bg-blue-500/15 text-blue-300 border-blue-500/30",
+  special: "bg-violet-500/15 text-violet-300 border-violet-500/30",
 }
 
 export function ProgramCard({ program }: ProgramCardProps) {
@@ -27,7 +27,7 @@ export function ProgramCard({ program }: ProgramCardProps) {
       }}
       whileTap={{ scale: 0.98 }}
     >
-      <Card className="h-full hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-card/50 backdrop-blur-sm">
+      <Card className="h-full hover:shadow-xl transition-all duration-300 border border-border/50 shadow-lg bg-card/80 backdrop-blur-sm">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <CardTitle className="font-serif text-xl">{program.name}</CardTitle>

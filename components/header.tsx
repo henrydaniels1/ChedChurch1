@@ -15,6 +15,7 @@ export function Header() {
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Programs", href: "/programs" },
+    { name: "Announcements", href: "/announcements" },
     { name: "Livestream", href: "/livestream" },
     { name: "Archives", href: "/archives" },
   ]
@@ -34,7 +35,7 @@ export function Header() {
 
   return (
     <motion.header
-      className="bg-white/95 backdrop-blur-md shadow-sm border-b border-border sticky top-0 z-50"
+      className="bg-card/95 backdrop-blur-md shadow-sm border-b border-border sticky top-0 z-50"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -128,7 +129,7 @@ export function Header() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="lg:hidden border-t border-border bg-white/95 backdrop-blur-md"
+              className="lg:hidden border-t border-border bg-card/95 backdrop-blur-md"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
