@@ -12,6 +12,9 @@ import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 import { getArchives } from "@/lib/data"
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function ArchivesPage() {
   let archives = []
   

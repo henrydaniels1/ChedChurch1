@@ -16,7 +16,10 @@ export async function GET() {
     
     if (error) {
       console.error('Supabase error:', error)
-      throw error
+      return NextResponse.json(
+        { error: 'Failed to fetch slides', details: error.message },
+        { status: 500 }
+      )
     }
     
     const response = NextResponse.json(data || [])
@@ -24,7 +27,10 @@ export async function GET() {
     return response
   } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json([])
+    return NextResponse.json(
+      { error: 'Internal server error', details: error.message },
+      { status: 500 }
+    )
   }
 }
 
@@ -37,9 +43,14 @@ export async function POST(request: NextRequest) {
       .insert([body])
       .select()
 
-    if (error) throw error
+    if (error) {
+      console.error('Supabase POST error:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    
     return NextResponse.json(data[0], { status: 201 })
   } catch (error: any) {
+    console.error('POST API error:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

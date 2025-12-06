@@ -28,14 +28,40 @@ export function HeroSlideshow() {
         cache: 'no-store',
         headers: { 'Cache-Control': 'no-cache' }
       })
-      if (response.ok) {
-        const data = await response.json()
-        setSlides(data)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
+      
+      const data = await response.json()
+      setSlides(data.length > 0 ? data : getFallbackSlides())
     } catch (error) {
       console.error('Failed to fetch slides:', error)
+      // Use fallback slides when API fails
+      setSlides(getFallbackSlides())
     }
   }
+
+  const getFallbackSlides = (): Slide[] => [
+    {
+      id: '1',
+      image: '/placeholder.svg?height=600&width=1200',
+      title: 'Welcome to Our Church',
+      subtitle: 'Join Us in Worship',
+      description: 'Experience the love of Christ in our welcoming community. Come as you are and discover your purpose.',
+      cta_text: 'Visit Us',
+      cta_link: '/visit'
+    },
+    {
+      id: '2', 
+      image: '/placeholder.svg?height=600&width=1200',
+      title: 'Growing in Faith Together',
+      subtitle: 'Community & Fellowship',
+      description: 'Connect with others on their faith journey through our small groups, Bible studies, and community events.',
+      cta_text: 'Get Connected',
+      cta_link: '/connect'
+    }
+  ]
 
   useEffect(() => {
     fetchSlides()

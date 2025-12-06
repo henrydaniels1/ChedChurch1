@@ -67,6 +67,20 @@ CREATE TABLE IF NOT EXISTS hero_slides (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Create homepage_content table
+CREATE TABLE IF NOT EXISTS homepage_content (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  section VARCHAR(50) NOT NULL UNIQUE,
+  title VARCHAR(255),
+  subtitle VARCHAR(255),
+  description TEXT,
+  image VARCHAR(500),
+  cta_text VARCHAR(100),
+  cta_link VARCHAR(255),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create livestream tables
 CREATE TABLE IF NOT EXISTS livestream_settings (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -104,6 +118,7 @@ ALTER TABLE announcements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE leadership ENABLE ROW LEVEL SECURITY;
 ALTER TABLE archives ENABLE ROW LEVEL SECURITY;
 ALTER TABLE hero_slides ENABLE ROW LEVEL SECURITY;
+ALTER TABLE homepage_content ENABLE ROW LEVEL SECURITY;
 ALTER TABLE livestream_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE livestream_schedule ENABLE ROW LEVEL SECURITY;
 ALTER TABLE livestream_features ENABLE ROW LEVEL SECURITY;
@@ -114,6 +129,7 @@ CREATE POLICY "Allow all operations on announcements" ON announcements FOR ALL U
 CREATE POLICY "Allow all operations on leadership" ON leadership FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all operations on archives" ON archives FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all operations on hero_slides" ON hero_slides FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all operations on homepage_content" ON homepage_content FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all operations on livestream_settings" ON livestream_settings FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all operations on livestream_schedule" ON livestream_schedule FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all operations on livestream_features" ON livestream_features FOR ALL USING (true) WITH CHECK (true);
@@ -144,6 +160,12 @@ INSERT INTO livestream_features (title, description, icon) VALUES
 ('Interactive Community', 'Connect with other viewers and participate in our online community during services.', 'Users'),
 ('Never Miss a Service', 'Can''t make it in person? Join us online and be part of our worship community from anywhere.', 'Calendar')
 ON CONFLICT DO NOTHING;
+
+-- Insert default homepage content
+INSERT INTO homepage_content (section, title, subtitle, description, image, cta_text, cta_link) VALUES
+('hero', 'Welcome to Peace Chapel Church', 'A Place of Faith, Hope, and Love', 'Join our loving community as we worship together, grow in faith, and serve our neighbors with the love of Christ.', 'https://i.pinimg.com/736x/25/02/2c/25022c631f497a11c407e6d24791ace5.jpg', 'Join Us Today', '/about'),
+('welcome', 'Our Community Welcomes You', 'Experience God''s Love', 'At Peace Chapel Church, we believe that everyone has a place in God''s family. Come as you are and discover the transforming power of His love.', 'https://i.pinimg.com/736x/03/51/8b/03518bb1836774755dbacba3ba218e0a.jpg', 'Learn More', '/about')
+ON CONFLICT (section) DO NOTHING;
 
 -- Create storage bucket for file uploads
 INSERT INTO storage.buckets (id, name, public) VALUES ('church-files', 'church-files', true) ON CONFLICT DO NOTHING;

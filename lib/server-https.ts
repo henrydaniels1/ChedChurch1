@@ -1,18 +1,51 @@
+import axios, { AxiosRequestConfig } from 'axios'
 import { apiUrl } from './api'
+
+// Configure axios instance with optimized settings for Vercel
+const httpClient = axios.create({
+  timeout: 10000, // 10 second timeout
+  headers: {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache',
+  },
+})
+
+// Request interceptor for logging and error handling
+httpClient.interceptors.request.use(
+  (config) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Making request to: ${config.url}`)
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
+// Response interceptor for error handling
+httpClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('HTTP Error:', error.message)
+    }
+    return Promise.reject(error)
+  }
+)
 
 export async function getLivestreamData() {
   try {
-    const response = await fetch(apiUrl('/api/livestream'), {
-      cache: 'no-store',
-      headers: { 'Cache-Control': 'no-cache' }
-    })
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch livestream data')
+    const config: AxiosRequestConfig = {
+      method: 'GET',
+      url: apiUrl('/api/livestream'),
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+      },
     }
-    
-    const data = await response.json()
-    
+
+    const response = await httpClient(config)
+    const data = response.data
+
     // Transform data to match expected format
     return {
       settings: {
@@ -98,3 +131,22 @@ export async function getLivestreamData() {
     }
   }
 }
+
+// Generic HTTP client functions for reuse
+export const httpGet = async (url: string, config?: AxiosRequestConfig) => {
+  return httpClient.get(url, config)
+}
+
+export const httpPost = async (url: string, data?: any, config?: AxiosRequestConfig) => {
+  return httpClient.post(url, data, config)
+}
+
+export const httpPut = async (url: string, data?: any, config?: AxiosRequestConfig) => {
+  return httpClient.put(url, data, config)
+}
+
+export const httpDelete = async (url: string, config?: AxiosRequestConfig) => {
+  return httpClient.delete(url, config)
+}
+
+export { httpClient }

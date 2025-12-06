@@ -11,6 +11,9 @@ import { WelcomeSection } from "@/components/sections/welcome-section"
 import { FeaturedProgramsSection } from "@/components/sections/featured-programs-section"
 import { getPrograms, getAnnouncements, getHomepageContent } from "@/lib/data"
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 async function getHomeData() {
   try {
     const [programs, announcements, homepageData] = await Promise.all([

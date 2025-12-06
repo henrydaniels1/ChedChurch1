@@ -71,10 +71,19 @@ export function LivestreamManager() {
 
   const loadLivestreamData = async () => {
     try {
-      const response = await fetch(apiUrl('/api/livestream'))
-      if (!response.ok) throw new Error('Failed to fetch data')
+      console.log('Loading livestream data from:', apiUrl('/api/livestream'))
+      const response = await fetch(apiUrl('/api/livestream'), {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      })
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        throw new Error(`Failed to fetch data: ${response.status} - ${errorText}`)
+      }
       
       const data = await response.json()
+      console.log('Received data:', data)
       
       if (data.settings) {
         setSettings({
@@ -91,15 +100,16 @@ export function LivestreamManager() {
         }
       }
       
-      if (data.schedule) {
+      if (data.schedule && Array.isArray(data.schedule)) {
         setSchedule(data.schedule)
       }
       
-      if (data.features) {
+      if (data.features && Array.isArray(data.features)) {
         setFeatures(data.features)
       }
     } catch (error) {
       console.error('Error loading livestream data:', error)
+      alert(`Error loading data: ${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -132,6 +142,52 @@ export function LivestreamManager() {
     } catch (error: any) {
       console.error('Error saving settings:', error)
       alert(`Error saving settings: ${error.message}`)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const saveSchedule = async () => {
+    setSaving(true)
+    try {
+      const response = await fetch(apiUrl('/api/livestream/schedule'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(schedule.filter(item => item.day && item.time && item.service))
+      })
+      
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to save schedule')
+      }
+      
+      alert('Schedule saved successfully!')
+    } catch (error: any) {
+      console.error('Error saving schedule:', error)
+      alert(`Error saving schedule: ${error.message}`)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const saveFeatures = async () => {
+    setSaving(true)
+    try {
+      const response = await fetch(apiUrl('/api/livestream/features'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(features.filter(feature => feature.title && feature.description))
+      })
+      
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to save features')
+      }
+      
+      alert('Features saved successfully!')
+    } catch (error: any) {
+      console.error('Error saving features:', error)
+      alert(`Error saving features: ${error.message}`)
     } finally {
       setSaving(false)
     }
@@ -341,9 +397,9 @@ export function LivestreamManager() {
               <Plus className="w-4 h-4 mr-2" />
               Add Service
             </Button>
-            <Button disabled>
+            <Button onClick={saveSchedule} disabled={saving}>
               <Save className="w-4 h-4 mr-2" />
-              Save Schedule (Coming Soon)
+              Save Schedule
             </Button>
           </div>
         </CardContent>
@@ -397,9 +453,9 @@ export function LivestreamManager() {
               <Plus className="w-4 h-4 mr-2" />
               Add Feature
             </Button>
-            <Button disabled>
+            <Button onClick={saveFeatures} disabled={saving}>
               <Save className="w-4 h-4 mr-2" />
-              Save Features (Coming Soon)
+              Save Features
             </Button>
           </div>
         </CardContent>

@@ -1,5 +1,7 @@
 import { supabase } from '@/lib/supabase'
 
+export const revalidate = 0
+
 export async function getPrograms() {
   try {
     const { data, error } = await supabase
@@ -7,9 +9,13 @@ export async function getPrograms() {
       .select('*')
       .order('created_at', { ascending: false })
 
-    if (error) throw error
+    if (error) {
+      console.error('Error fetching programs:', error)
+      throw error
+    }
     return data || []
   } catch (error) {
+    console.error('Programs fetch failed:', error)
     return []
   }
 }
@@ -21,9 +27,13 @@ export async function getAnnouncements() {
       .select('*')
       .order('date', { ascending: false })
 
-    if (error) throw error
+    if (error) {
+      console.error('Error fetching announcements:', error)
+      throw error
+    }
     return data || []
   } catch (error) {
+    console.error('Announcements fetch failed:', error)
     return []
   }
 }
@@ -34,9 +44,13 @@ export async function getHomepageContent() {
       .from('homepage_content')
       .select('*')
 
-    if (error) throw error
+    if (error) {
+      console.error('Error fetching homepage content:', error)
+      throw error
+    }
     return data || []
   } catch (error) {
+    console.error('Homepage content fetch failed:', error)
     return []
   }
 }
@@ -48,9 +62,13 @@ export async function getArchives() {
       .select('*')
       .order('date', { ascending: false })
 
-    if (error) throw error
+    if (error) {
+      console.error('Error fetching archives:', error)
+      throw error
+    }
     return data || []
   } catch (error) {
+    console.error('Archives fetch failed:', error)
     return []
   }
 }
@@ -62,9 +80,13 @@ export async function getLeadership() {
       .select('*')
       .order('order', { ascending: true })
 
-    if (error) throw error
+    if (error) {
+      console.error('Error fetching leadership:', error)
+      throw error
+    }
     return data || []
   } catch (error) {
+    console.error('Leadership fetch failed:', error)
     return []
   }
 }

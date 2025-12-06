@@ -10,6 +10,9 @@ import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 import Link from "next/link"
 import { getPrograms } from "@/lib/data"
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function ProgramsPage() {
   let programsContent = []
   
