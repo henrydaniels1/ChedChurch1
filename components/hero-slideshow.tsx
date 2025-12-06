@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Loader } from "@/components/ui/loader"
 import Link from "next/link"
 import { apiUrl } from "@/lib/api"
 
@@ -94,8 +95,8 @@ export function HeroSlideshow() {
 
   if (slides.length === 0) {
     return (
-      <section className="relative h-[80vh] min-h-[600px] overflow-hidden bg-gray-200 flex items-center justify-center">
-        <p className="text-gray-500">Loading slides...</p>
+      <section className="relative h-[80vh] min-h-[600px] overflow-hidden bg-background flex items-center justify-center">
+        <Loader size="lg" text="" />
       </section>
     )
   }

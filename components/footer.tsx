@@ -28,7 +28,7 @@ export function Footer() {
                 <Cross className="w-5 h-5 text-primary-foreground" />
               </div>
               <div className="flex flex-col">
-                <span className="font-serif font-bold text-lg text-foreground">Grace Community</span>
+                <span className="font-serif font-bold text-lg text-foreground">Peace Chapel</span>
                 <span className="text-xs text-muted-foreground -mt-1">Church</span>
               </div>
             </div>
