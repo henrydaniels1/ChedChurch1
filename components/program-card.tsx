@@ -27,7 +27,7 @@ export function ProgramCard({ program }: ProgramCardProps) {
       }}
       whileTap={{ scale: 0.98 }}
     >
-      <Card className="h-full hover:shadow-xl transition-all duration-300 border border-border/50 shadow-lg bg-card/80 backdrop-blur-sm">
+      <Card className="h-full hover:shadow-xl transition-all duration-300 border border-1 border-gray-200 shadow-lg bg-card/80 backdrop-blur-sm">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <CardTitle className="font-serif text-xl">{program.name}</CardTitle>

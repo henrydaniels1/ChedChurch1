@@ -23,7 +23,7 @@ export function FeaturedProgramsSection({ programs }: FeaturedProgramsSectionPro
           />
         </AnimatedSection>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 ">
           {programs.map((program) => (
             <StaggerItem
               key={program.id}
@@ -50,7 +50,7 @@ export function FeaturedProgramsSection({ programs }: FeaturedProgramsSectionPro
           <Button
             asChild
             variant="outline"
-            className="transform hover:scale-105 transition-all duration-300 bg-transparent"
+            className="transform hover:scale-105 transition-all duration-300 bg-transparent border border-1 border-gray-200"
           >
             <Link href="/programs">
               View All Programs <ArrowRight className="w-4 h-4 ml-2" />
