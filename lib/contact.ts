@@ -10,5 +10,5 @@ export const socialLinks: SocialLinks = {
   facebook: "",
   instagram: "https://www.instagram.com/the_beaconcentre/",
   youtube: "https://www.youtube.com/@thebeaconcentre8406",
-  twitter: "https://twitter.com/gracecommunity",
+  twitter: "https://twitter.com/Peace Chapel",
 }

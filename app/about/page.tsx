@@ -64,7 +64,7 @@ export default async function AboutPage() {
             <SectionHeader
               subtitle="About Us"
               title="Our Story of Faith"
-              description="Learn about our mission, vision, and the people who make Grace Community Church a place of belonging."
+              description="Learn about our mission, vision, and the people who make Peace chapel Church a place of belonging."
               centered
             />
           </AnimatedSection>

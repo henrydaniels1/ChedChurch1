@@ -62,6 +62,6 @@ INSERT INTO livestream_features (title, description, icon) VALUES
 ON CONFLICT DO NOTHING;
 
 INSERT INTO homepage_content (section, title, subtitle, description, image) VALUES
-('hero', 'Welcome to Grace Community Church', 'A Place to Belong', 'Join us as we grow together in faith, hope, and love. Experience the warmth of our community and discover your purpose in God''s plan.', '/placeholder.svg?height=600&width=1200'),
+('hero', 'Welcome to Peace Chapel Church', 'A Place to Belong', 'Join us as we grow together in faith, hope, and love. Experience the warmth of our community and discover your purpose in God''s plan.', '/placeholder.svg?height=600&width=1200'),
 ('welcome', 'Welcome Home', '', 'We believe that church is more than a building - it''s a family. Whether you''re new to faith or have been walking with God for years, you''ll find a place to belong here.', '/placeholder.svg?height=400&width=600')
 ON CONFLICT (section) DO NOTHING;

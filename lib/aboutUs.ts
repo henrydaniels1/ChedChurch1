@@ -8,7 +8,7 @@ export const aboutUsContent: AboutUsContent = {
   history: {
     title: "Our Story",
     content:
-      "Grace Community Church was founded in 1985 by a small group of families who felt called to create a welcoming space for worship and community service. Over the decades, we have grown from a handful of members meeting in a school gymnasium to a vibrant congregation of over 500 families.",
+      "Peace Chapel Church was founded in 1985 by a small group of families who felt called to create a welcoming space for worship and community service. Over the decades, we have grown from a handful of members meeting in a school gymnasium to a vibrant congregation of over 500 families.",
     timeline: [
       {
         year: "1985",
@@ -59,7 +59,7 @@ export const aboutUsContent: AboutUsContent = {
       id: "pastor-john",
       name: "Pastor Adeboye",
       position: "Senior Pastor",
-      bio: "Pastor John has been leading Grace Community Church since 2010. He holds a Master of Divinity from Seminary and is passionate about expository preaching and pastoral care.",
+      bio: "Pastor John has been leading Peace Chapel Church since 2010. He holds a Master of Divinity from Seminary and is passionate about expository preaching and pastoral care.",
       image: "https://i.pinimg.com/736x/49/fd/54/49fd5409a92dbcf9189279b856fe5b12.jpg",
     },
     {

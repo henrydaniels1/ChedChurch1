@@ -4,7 +4,7 @@ export const archivesContent: ArchivesContent = {
   books: [
     {
       id: "book-1",
-      title: "The History of Grace Community Church",
+      title: "The History of Peace Chapel Church",
       description: "A comprehensive look at our church's founding and growth over the decades.",
       date: "2020-01-15",
       author: "Pastor John Mitchell",
@@ -39,7 +39,7 @@ export const archivesContent: ArchivesContent = {
   journals: [
     {
       id: "journal-1",
-      title: "Grace Community Quarterly - Spring 2024",
+      title: "Peace Chapel Quarterly - Spring 2024",
       description: "Latest news, testimonies, and updates from our church community.",
       date: "2024-03-01",
       issue: "Spring 2024",
@@ -49,7 +49,7 @@ export const archivesContent: ArchivesContent = {
     },
     {
       id: "journal-2",
-      title: "Grace Community Quarterly - Winter 2024",
+      title: "Peace Chapel Quarterly - Winter 2024",
       description: "Year-end reflections, Christmas celebrations, and ministry highlights.",
       date: "2023-12-01",
       issue: "Winter 2024",
@@ -59,7 +59,7 @@ export const archivesContent: ArchivesContent = {
     },
     {
       id: "journal-3",
-      title: "Grace Community Quarterly - Fall 2023",
+      title: "Peace Chapel Quarterly - Fall 2023",
       description: "Harvest festival coverage, new member spotlights, and upcoming events.",
       date: "2023-09-01",
       issue: "Fall 2023",

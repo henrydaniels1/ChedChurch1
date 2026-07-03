@@ -222,7 +222,7 @@ export default async function ProgramsPage() {
             <SectionHeader
               subtitle="Schedule"
               title="Weekly Calendar"
-              description="See what's happening throughout the week at Grace Community Church."
+              description="See what's happening throughout the week at Peace Chapel Church."
               centered
             />
           </AnimatedSection>

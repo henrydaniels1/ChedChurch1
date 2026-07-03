@@ -2,7 +2,7 @@ import type { HomeContent } from "./types"
 
 export const homeContent: HomeContent = {
   hero: {
-    title: "Welcome to Grace Community Church",
+    title: "Welcome to Peace Chapel Church",
     subtitle: "A Place of Faith, Hope, and Love",
     description:
       "Join our loving community as we worship together, grow in faith, and serve our neighbors with the love of Christ.",
@@ -11,7 +11,7 @@ export const homeContent: HomeContent = {
   welcome: {
     title: "Our Community Welcomes You",
     content:
-      "At Grace Community Church, we believe that everyone has a place in God's family. Whether you're seeking spiritual growth, community connection, or simply a place to belong, we invite you to join us on this journey of faith. Our doors are always open, and our hearts are ready to welcome you home.",
+      "At Peace Chapel Church, we believe that everyone has a place in God's family. Whether you're seeking spiritual growth, community connection, or simply a place to belong, we invite you to join us on this journey of faith. Our doors are always open, and our hearts are ready to welcome you home.",
     image: "https://i0.wp.com/media.premiumtimesng.com/wp-content/files/2024/09/WhatsApp-Image-2024-09-26-at-23.07.28.jpeg?ssl=1",
   },
   featuredPrograms: [
