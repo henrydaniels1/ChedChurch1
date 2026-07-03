@@ -37,17 +37,18 @@ export default function AdminDashboard() {
   if (!user) return <div>Loading...</div>
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 lg:p-6 p-3">
       <div className="max-w-7xl mx-auto">
+
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <h1 className="lg:text-3xl md:text-2xl text-xl font-bold text-black">Admin Dashboard</h1>
           <Button onClick={handleLogout} variant="outline">
             Logout
           </Button>
         </div>
 
-        <Tabs defaultValue="homepage" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+        <Tabs defaultValue="homepage" className="space-y-6 ">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 gap-2">
             <TabsTrigger value="homepage">Homepage</TabsTrigger>
             <TabsTrigger value="programs">Programs</TabsTrigger>
             <TabsTrigger value="announcements">Announcements</TabsTrigger>

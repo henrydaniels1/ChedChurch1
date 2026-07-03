@@ -60,9 +60,9 @@ export function HomepageManager() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-4">
       <Tabs defaultValue="slides" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-3 ">
           <TabsTrigger value="slides">Hero Slides</TabsTrigger>
           <TabsTrigger value="hero">Hero Section</TabsTrigger>
           <TabsTrigger value="welcome">Welcome Section</TabsTrigger>

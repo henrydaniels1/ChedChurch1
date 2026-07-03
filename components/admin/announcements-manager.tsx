@@ -42,7 +42,7 @@ export function AnnouncementsManager() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-4">
       <Card>
         <CardHeader>
           <CardTitle>Add New Announcement</CardTitle>

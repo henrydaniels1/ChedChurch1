@@ -84,9 +84,9 @@ export function HeroSlidesManager() {
   }, [])
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Hero Slides</h2>
+    <div className="space-y-6 ">
+      <div className="flex justify-between items-center ">
+        <h2 className="text-2xl font-bold text-black">Hero Slides</h2>
         <Button onClick={() => setShowForm(true)} className="flex items-center gap-2">
           <Plus className="w-4 h-4" />
           Add Slide

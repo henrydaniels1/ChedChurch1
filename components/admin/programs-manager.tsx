@@ -101,7 +101,7 @@ export function ProgramsManager() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-4">
       <Card>
         <CardHeader>
           <CardTitle>{editingId ? 'Edit Program' : 'Add New Program'}</CardTitle>

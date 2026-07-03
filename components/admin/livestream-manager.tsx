@@ -226,7 +226,7 @@ export function LivestreamManager() {
   if (loading) return <div>Loading...</div>
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-4">
       <DatabaseStatus />
       {/* Stream Settings */}
       <Card>

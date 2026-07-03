@@ -69,7 +69,7 @@ export default function LivestreamPage() {
       />
 
       {/* Video Player Section */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background ">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection direction="fade" delay={0.3}>
             <LivestreamClient streamUrl={streamUrl} isLive={isLive} />
