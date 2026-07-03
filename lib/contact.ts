@@ -1,9 +1,9 @@
 import type { ContactInfo, SocialLinks } from "./types"
 
 export const contactInfo: ContactInfo = {
-  phone: "(555) 123-4567",
-  email: "info@beaconcentre.org",
-  address: "123 Faith Street, Hometown, ST 12345",
+  phone: "(+234) 8000 1113 22",
+  email: "info@Peacechapel.org",
+  address: "Lagos, Nigeria.",
 }
 
 export const socialLinks: SocialLinks = {

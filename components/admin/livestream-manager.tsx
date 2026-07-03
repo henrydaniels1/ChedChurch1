@@ -107,7 +107,7 @@ export function LivestreamManager() {
       if (data.features && Array.isArray(data.features)) {
         setFeatures(data.features)
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error loading livestream data:', error)
       alert(`Error loading data: ${error.message}`)
     } finally {

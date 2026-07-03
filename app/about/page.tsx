@@ -5,10 +5,11 @@ import { Badge } from "@/components/ui/badge"
 import { Cross, Heart, HandIcon as Hands, TreePine } from "lucide-react"
 // import { aboutUsContent } from "@/lib/aboutUs"
 import { AnimatedSection } from "@/components/animated-section"
+import type { LeadershipMember } from "@/lib/types"
 import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 
-async function getLeadership() {
+async function getLeadership(): Promise<LeadershipMember[]> {
   try {
     const response = await fetch('http://localhost:3000/api/leadership', { cache: 'no-store' })
     return response.ok ? await response.json() : []
@@ -27,10 +28,10 @@ export default async function AboutPage() {
     title: "Our Journey of Faith",
     content: "Founded with a heart for community and a passion for God's word, our church has been a beacon of hope and love.",
     timeline: [
-      { year: "1995", event: "Church founded with 25 founding members in a small community hall." },
-      { year: "2000", event: "Built our first permanent sanctuary to accommodate our growing congregation." },
-      { year: "2010", event: "Launched community outreach programs serving over 500 families annually." },
-      { year: "2020", event: "Adapted to digital ministry during the pandemic, reaching people worldwide." }
+      { year: "1995", event: "Church founded with 25 founding members in a small community hall.", images: [] as string[] },
+      { year: "2000", event: "Built our first permanent sanctuary to accommodate our growing congregation.", images: [] as string[] },
+      { year: "2010", event: "Launched community outreach programs serving over 500 families annually.", images: [] as string[] },
+      { year: "2020", event: "Adapted to digital ministry during the pandemic, reaching people worldwide.", images: [] as string[] }
     ]
   }
   const values = [
