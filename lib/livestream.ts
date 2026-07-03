@@ -4,7 +4,7 @@ export const livestreamContent: LivestreamContent = {
   title: "Join Us Online",
   description:
     "Can't make it to church in person? Join us online for live worship services and special events. Our livestream allows you to participate in worship from anywhere in the world.",
-  streamUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder URL
+  streamUrl: "https://www.youtube.com/embed/toFrW8rJWl4", // Placeholder URL
   schedule: [
     {
       day: "Sunday",

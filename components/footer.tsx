@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Cross, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Twitter } from "lucide-react"
+import Image from "next/image"
+import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Twitter } from "lucide-react"
 import { contactInfo, socialLinks } from "@/lib/contact"
 
 export function Footer() {
@@ -23,17 +24,18 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Church Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <Cross className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-lg text-foreground">Peace Chapel</span>
-                <span className="text-xs text-muted-foreground -mt-1">Church</span>
-              </div>
+            <div className="flex items-center">
+              <Image
+                src="/tbclogo1.svg"
+                alt="Peace Chapel Logo"
+                width={120}
+                height={48}
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              A place of faith, hope, and love where everyone belongs. Join our community as we grow together in Christ.
+              A place of faith, hope, and love where everyone belongs.
+               Join our community as we grow together in Christ.
             </p>
             <div className="flex space-x-4">
               {socialLinks.facebook && (
@@ -129,7 +131,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-muted-foreground text-sm">© 2024 Grace Community Church. All rights reserved.</p>
+            <p className="text-muted-foreground text-sm">© 2026 The Peace chapel Church. All rights reserved.</p>
             <div className="flex space-x-6">
               <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors text-sm">
                 Privacy Policy

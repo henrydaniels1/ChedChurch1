@@ -21,40 +21,40 @@ async function getHomeData() {
       getAnnouncements(),
       getHomepageContent()
     ])
-    
+
     const content = homepageData.reduce((acc: any, item: any) => {
       acc[item.section] = item
       return acc
     }, {})
-    
+
     return {
       featuredPrograms: programs.slice(0, 3),
       announcements: announcements.slice(0, 3),
       hero: content.hero || {
-        title: "Welcome to Peace Chapel Church",
+        title: "Welcome to The Peace chapel Church",
         subtitle: "A Place of Faith, Hope, and Love",
         description: "Join our loving community as we worship together, grow in faith, and serve our neighbors with the love of Christ.",
         image: "https://i.pinimg.com/736x/25/02/2c/25022c631f497a11c407e6d24791ace5.jpg"
       },
       welcome: content.welcome || {
         title: "Our Community Welcomes You",
-        description: "At Peace Chapel Church, we believe that everyone has a place in God's family.",
+        description: "At The Peace chapel Church, we believe that everyone has a place in God's family.",
         image: "https://i.pinimg.com/736x/03/51/8b/03518bb1836774755dbacba3ba218e0a.jpg"
       }
     }
   } catch (error) {
-    return { 
-      featuredPrograms: [], 
+    return {
+      featuredPrograms: [],
       announcements: [],
       hero: {
-        title: "Welcome to Peace Chapel Church",
+        title: "Welcome to The Peace chapel Church",
         subtitle: "A Place of Faith, Hope, and Love",
         description: "Join our loving community as we worship together, grow in faith, and serve our neighbors with the love of Christ.",
         image: "https://i.pinimg.com/736x/25/02/2c/25022c631f497a11c407e6d24791ace5.jpg"
       },
       welcome: {
         title: "Our Community Welcomes You",
-        description: "At Peace Chapel Church, we believe that everyone has a place in God's family.",
+        description: "At The Peace chapel Church, we believe that everyone has a place in God's family.",
         image: "https://i.pinimg.com/736x/03/51/8b/03518bb1836774755dbacba3ba218e0a.jpg"
       }
     }
@@ -70,7 +70,7 @@ export default async function HomePage() {
       <HeroSlideshow />
 
       {/* Welcome Section */}
-      <WelcomeSection 
+      <WelcomeSection
         title={welcome.title}
         content={welcome.description}
         image={welcome.image}

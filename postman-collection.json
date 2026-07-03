@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Church Website API",
-    "description": "API endpoints for Peace Chapel Church website",
+    "description": "API endpoints for The Peace chapel Church website",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -22,8 +22,13 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/programs",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "programs"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "programs"
+              ]
             }
           }
         },
@@ -43,8 +48,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/programs",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "programs"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "programs"
+              ]
             }
           }
         }
@@ -60,8 +70,13 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/announcements",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "announcements"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
             }
           }
         },
@@ -81,8 +96,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/announcements",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "announcements"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
             }
           }
         }
@@ -98,8 +118,13 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/leadership",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "leadership"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leadership"
+              ]
             }
           }
         },
@@ -119,8 +144,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/leadership",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "leadership"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leadership"
+              ]
             }
           }
         }
@@ -136,8 +166,13 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/archives",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "archives"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "archives"
+              ]
             }
           }
         },
@@ -148,8 +183,13 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/archives?type=video",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "archives"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "archives"
+              ],
               "query": [
                 {
                   "key": "type",
@@ -175,8 +215,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/archives",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "archives"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "archives"
+              ]
             }
           }
         }

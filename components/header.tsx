@@ -1,11 +1,12 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState, useCallback } from "react"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Cross } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -22,15 +23,14 @@ export function Header() {
 
   const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), [])
   const closeMenu = useCallback(() => setIsMenuOpen(false), [])
-  
+
   const isActive = useCallback((href: string) => {
     return pathname === href || (href !== '/' && pathname.startsWith(href))
   }, [pathname])
 
   const getLinkClassName = useCallback((active: boolean) => {
-    return `font-medium relative group transition-colors duration-200 ${
-      active ? 'text-primary' : 'text-foreground hover:text-primary'
-    }`
+    return `font-medium relative group transition-colors duration-200 ${active ? 'text-primary' : 'text-foreground hover:text-primary'
+      }`
   }, [])
 
   return (
@@ -44,23 +44,20 @@ export function Header() {
         <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-            <Link href="/" className="flex items-center space-x-2">
-              <motion.div
-                className="w-8 h-8 bg-primary rounded-full flex items-center justify-center"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Cross className="w-5 h-5 text-primary-foreground" />
-              </motion.div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-base sm:text-lg text-foreground">Peace Chapel</span>
-                <span className="text-xs text-muted-foreground -mt-1 hidden xs:block">Church</span>
-              </div>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/tbclogo1.svg"
+                alt="The Peace chapel Logo"
+                width={120}
+                height={48}
+                className="h-10 sm:h-12 w-auto object-contain"
+                priority
+              />
             </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <motion.nav 
+          <motion.nav
             className="hidden lg:flex items-center space-x-6 xl:space-x-8"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -75,9 +72,8 @@ export function Header() {
                     className={getLinkClassName(active)}
                   >
                     {item.name}
-                    <div className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                      active ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`} />
+                    <div className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${active ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`} />
                   </Link>
                 </motion.div>
               )
@@ -135,7 +131,7 @@ export function Header() {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <motion.div 
+              <motion.div
                 className="px-4 py-4 space-y-2"
                 initial="hidden"
                 animate="visible"
@@ -150,11 +146,10 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
-                        className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${
-                          active 
-                            ? 'text-primary bg-secondary/50' 
+                        className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${active
+                            ? 'text-primary bg-secondary/50'
                             : 'text-foreground hover:text-primary hover:bg-secondary'
-                        }`}
+                          }`}
                         onClick={closeMenu}
                       >
                         {item.name}
