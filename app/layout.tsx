@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "The beacon cetre Church",
+  title: "The Peace Chapel Church",
   description: "A Place of Faith, Hope, and Love - Join our loving community in worship, growth, and service.",
   generator: "chedweb",
 }

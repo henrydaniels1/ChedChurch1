@@ -83,6 +83,7 @@ export default async function ProgramsPage() {
 
   return (
     <div className="min-h-screen">
+      
       {/* Hero Section */}
       <section className="relative py-24  overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -215,101 +216,6 @@ export default async function ProgramsPage() {
         </div>
       </section>
 
-      {/* Weekly Schedule */}
-      <section className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <SectionHeader
-              subtitle="Schedule"
-              title="Weekly Calendar"
-              description="See what's happening throughout the week at Peace Chapel Church."
-              centered
-            />
-          </AnimatedSection>
-
-          <StaggerContainer className="space-y-6">
-            {dayOrder.map((day, dayIndex) => {
-              const dayPrograms = programsByDay[day]
-              if (!dayPrograms || dayPrograms.length === 0) return null
-
-              return (
-                <StaggerItem
-                  key={day}
-                  variants={{
-                    hidden: { opacity: 0, x: -30 },
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                      transition: { duration: 0.6, delay: dayIndex * 0.1 },
-                    },
-                  }}
-                  whileHover={{
-                    scale: 1.01,
-                    transition: { duration: 0.2 },
-                  }}
-                >
-                  <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
-                    <CardHeader className="bg-primary/5 border-b border-border">
-                      <CardTitle className="font-serif text-xl flex items-center">
-                        <Calendar className="w-5 h-5 text-primary mr-3" />
-                        {day}
-                        <Badge variant="secondary" className="ml-auto">
-                          {dayPrograms.length} programs
-                        </Badge>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                      <div className="divide-y divide-border">
-                        {(dayPrograms as typeof programsContent)
-                          .sort((a, b) => {
-                            // Sort by time
-                            const timeA = new Date(`1970/01/01 ${a.time}`).getTime()
-                            const timeB = new Date(`1970/01/01 ${b.time}`).getTime()
-                            return timeA - timeB
-                          })
-                          .map((program) => (
-                            <div key={program.id} className="p-6 hover:bg-muted/50 transition-colors">
-                              <div className="flex flex-col md:flex-row md:items-center justify-between space-y-3 md:space-y-0">
-                                <div className="flex-1">
-                                  <div className="flex items-center space-x-3 mb-2">
-                                    <h3 className="font-serif font-semibold text-lg text-foreground">{program.name}</h3>
-                                    <Badge
-                                      variant="outline"
-                                      className={
-                                        program.category === "worship"
-                                          ? "border-primary/20 text-primary"
-                                          : program.category === "youth"
-                                            ? "border-accent/20 text-accent"
-                                            : ""
-                                      }
-                                    >
-                                      {program.category}
-                                    </Badge>
-                                  </div>
-                                  <p className="text-muted-foreground mb-3">{program.description}</p>
-                                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                                    <div className="flex items-center space-x-1">
-                                      <Clock className="w-4 h-4" />
-                                      <span>{program.time}</span>
-                                    </div>
-                                    <div className="flex items-center space-x-1">
-                                      <MapPin className="w-4 h-4" />
-                                      <span>{program.location}</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </StaggerItem>
-              )
-            })}
-          </StaggerContainer>
-        </div>
-      </section>
 
       {/* Call to Action */}
       <AnimatedSection>
