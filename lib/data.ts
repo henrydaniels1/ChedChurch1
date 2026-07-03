@@ -73,6 +73,24 @@ export async function getArchives() {
   }
 }
 
+export async function getCategoryInfo() {
+  try {
+    const { data, error } = await supabase
+      .from('program_categories')
+      .select('*')
+      .order('key', { ascending: true })
+
+    if (error) throw error
+    return (data || []).reduce((acc: Record<string, any>, row: any) => {
+      acc[row.key] = { title: row.title, description: row.description, icon: row.icon, image: row.image }
+      return acc
+    }, {})
+  } catch (error) {
+    console.error('Category info fetch failed:', error)
+    return {}
+  }
+}
+
 export async function getLeadership() {
   try {
     const { data, error } = await supabase

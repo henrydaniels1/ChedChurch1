@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { supabase } from "@/lib/supabase"
 import { useRouter } from "next/navigation"
 import { ProgramsManager } from "@/components/admin/programs-manager"
+import { CategoryInfoManager } from "@/components/admin/category-info-manager"
 import { AnnouncementsManager } from "@/components/admin/announcements-manager"
 import { LeadershipManager } from "@/components/admin/leadership-manager"
 import { ArchivesManager } from "@/components/admin/archives-manager"
@@ -62,7 +63,18 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="programs">
-            <ProgramsManager />
+            <Tabs defaultValue="programs-list" className="space-y-4">
+              <TabsList>
+                <TabsTrigger value="programs-list">Programs</TabsTrigger>
+                <TabsTrigger value="categories">Category Info</TabsTrigger>
+              </TabsList>
+              <TabsContent value="programs-list">
+                <ProgramsManager />
+              </TabsContent>
+              <TabsContent value="categories">
+                <CategoryInfoManager />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
 
           <TabsContent value="announcements">

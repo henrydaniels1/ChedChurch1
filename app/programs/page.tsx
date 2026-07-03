@@ -8,20 +8,16 @@ import { AnimatedSection } from "@/components/animated-section"
 import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 import Link from "next/link"
-import { getPrograms } from "@/lib/data"
+import { getPrograms, getCategoryInfo } from "@/lib/data"
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export default async function ProgramsPage() {
-  let programsContent = []
-  
-  try {
-    programsContent = await getPrograms()
-  } catch (error) {
-    console.error('Failed to load programs:', error)
-    // Continue with empty array
-  }
+  const [programsContent, categoryInfo] = await Promise.all([
+    getPrograms().catch(() => []),
+    getCategoryInfo().catch(() => ({})),
+  ])
   // Group programs by category
   const programsByCategory = programsContent.reduce(
     (acc, program) => {
@@ -47,39 +43,6 @@ export default async function ProgramsPage() {
   )
 
   const dayOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-  const categoryInfo = {
-    worship: {
-      title: "Worship Services",
-      description: "Join us for inspiring worship and fellowship",
-      icon: "🙏",
-      image: "https://i.pinimg.com/736x/84/d2/eb/84d2eb7edd25922769ef5cb7095ffd92.jpg",
-    },
-    children: {
-      title: "Children's Ministry",
-      description: "Fun and engaging programs for our youngest members",
-      icon: "👶",
-      image: "https://i.pinimg.com/736x/a6/e9/6f/a6e96f2f887d21e0e6fa2e1bdfc3c745.jpg",
-    },
-    youth: {
-      title: "Youth Ministry",
-      description: "Building faith and friendships for teenagers",
-      icon: "🌟",
-      image: "https://i.pinimg.com/736x/17/6f/bb/176fbbaad2aa60f2140b0b11b0c1de05.jpg",
-    },
-    adult: {
-      title: "Adult Ministry",
-      description: "Growing together in faith and community",
-      icon: "📖",
-      image: "https://i.pinimg.com/736x/a6/e9/6f/a6e96f2f887d21e0e6fa2e1bdfc3c745.jpg",
-    },
-    special: {
-      title: "Special Programs",
-      description: "Unique opportunities for service and fellowship",
-      icon: "✨",
-      image: "https://i.pinimg.com/736x/76/7d/58/767d5879cc2a5abb470f74496b429248.jpg",
-    },
-  }
 
   return (
     <div className="min-h-screen">
@@ -169,7 +132,7 @@ export default async function ProgramsPage() {
           <div className="space-y-16">
             {Object.entries(programsByCategory).map(([category, programs], categoryIndex) => {
               const typedPrograms = programs as typeof programsContent
-              const info = categoryInfo[category as keyof typeof categoryInfo]
+              const info = categoryInfo[category as keyof typeof categoryInfo] ?? { title: category, description: "", icon: "", image: "" }
               return (
                 <AnimatedSection key={category} id={category} delay={categoryIndex * 0.1}>
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center mb-8">
