@@ -19,6 +19,7 @@ const emptyForm = {
   thumbnail: "",
   author: "",
   issue: "",
+  embed: "",
 }
 
 export function ArchivesManager() {
@@ -62,6 +63,7 @@ export function ArchivesManager() {
       thumbnail: item.thumbnail ?? "",
       author: item.author ?? "",
       issue: item.issue ?? "",
+      embed: item.embed ?? "",
     })
   }
 
@@ -140,6 +142,18 @@ export function ArchivesManager() {
               {formData.thumbnail && (
                 <img src={formData.thumbnail} alt="Thumbnail preview" className="w-24 h-24 object-cover rounded border" />
               )}
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm text-muted-foreground">Embed Code (optional)</p>
+              <Textarea
+                placeholder={`Paste embed code e.g. <iframe src="..." />`}
+                value={formData.embed}
+                onChange={(e) => set("embed", e.target.value)}
+                rows={3}
+                className="font-mono text-xs"
+              />
+              <p className="text-xs text-muted-foreground">Supports YouTube, Google Drive, or any iframe embed. Overrides thumbnail display when present.</p>
             </div>
 
             <div className="flex gap-2">

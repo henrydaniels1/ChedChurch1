@@ -54,7 +54,12 @@ export function ArchiveCard({ item, type }: ArchiveCardProps) {
       whileTap={{ scale: 0.98 }}
     >
       <Card className="h-full hover:shadow-xl transition-all duration-300 border border-1 border-gray-200 shadow-lg bg-card/80 backdrop-blur-sm overflow-hidden">
-        {item.thumbnail && (
+        {item.embed ? (
+          <div
+            className="relative w-full overflow-hidden [&>iframe]:w-full [&>iframe]:h-48"
+            dangerouslySetInnerHTML={{ __html: item.embed }}
+          />
+        ) : item.thumbnail && (
           <motion.div
             className="relative h-48 w-full overflow-hidden"
             whileHover={{ scale: 1.05 }}
