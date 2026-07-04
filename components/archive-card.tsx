@@ -129,22 +129,10 @@ export function ArchiveCard({ item, type }: ArchiveCardProps) {
             )}
           </div>
 
-          {(item.url ||
-            (type === "video" && (item as Video).videoUrl) ||
-            (type === "picture" && (item as Picture).imageUrl)) && (
+          {item.url && (
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button asChild className="w-full transform transition-all duration-300 hover:shadow-md">
-                <Link
-                  href={
-                    type === "video"
-                      ? (item as Video).videoUrl
-                      : type === "picture"
-                        ? (item as Picture).imageUrl
-                        : item.url || "#"
-                  }
-                  target={type === "video" ? "_blank" : undefined}
-                  rel={type === "video" ? "noopener noreferrer" : undefined}
-                >
+                <Link href={item.url} target="_blank" rel="noopener noreferrer">
                   {getIcon()}
                   {getActionText()}
                 </Link>

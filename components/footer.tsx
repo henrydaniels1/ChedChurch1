@@ -132,14 +132,14 @@ export function Footer() {
         <div className="mt-8 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-muted-foreground text-sm">© 2026 The Peace chapel Church. All rights reserved.</p>
-            <div className="flex space-x-6">
+            {/* <div className="flex space-x-6">
               <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors text-sm">
                 Privacy Policy
               </Link>
               <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors text-sm">
                 Terms of Service
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
