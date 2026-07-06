@@ -3,15 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionHeader } from "@/components/section-header"
 import { Badge } from "@/components/ui/badge"
 import { Cross, Heart, HandIcon as Hands, TreePine } from "lucide-react"
-// import { aboutUsContent } from "@/lib/aboutUs"
 import { AnimatedSection } from "@/components/animated-section"
 import type { LeadershipMember } from "@/lib/types"
 import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
+import { DonationsSection } from "@/components/donations-section"
 
 async function getLeadership(): Promise<LeadershipMember[]> {
   try {
-    const response = await fetch('http://localhost:3000/api/leadership', { cache: 'no-store' })
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}/api/leadership`, { cache: 'no-store' })
     return response.ok ? await response.json() : []
   } catch (error) {
     return []
@@ -238,64 +239,69 @@ export default async function AboutPage() {
       </section>
 
       {/* Leadership */}
-      <section className="py-16 bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <SectionHeader
-              subtitle="Meet Our Team"
-              title="Church Leadership"
-              description="Our dedicated leaders are here to serve, guide, and support our church family."
-              centered
-            />
-          </AnimatedSection>
+      {leadership.length > 0 && (
+        <section className="py-16 bg-secondary">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection className="text-center mb-12">
+              <SectionHeader
+                subtitle="Meet Our Team"
+                title="Church Leadership"
+                description="Our dedicated leaders are here to serve, guide, and support our church family."
+                centered
+              />
+            </AnimatedSection>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {leadership.map((leader, index) => (
-              <StaggerItem
-                key={leader.id}
-                variants={{
-                  hidden: { opacity: 0, y: 30, scale: 0.9 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    transition: { duration: 0.6, delay: index * 0.1 },
-                  },
-                }}
-                whileHover={{
-                  y: -8,
-                  scale: 1.03,
-                  transition: { duration: 0.2 },
-                }}
-              >
-                <Card className="text-center hover:shadow-xl transition-all duration-300 h-full">
-                  <CardHeader className="pb-3">
-                    <div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group">
-                      <Image
-                        src={
-                          leader.image ||
-                          `/placeholder.svg?height=128&width=128&query=Nigerian church leader ${leader.position} professional portrait`
-                        }
-                        alt={leader.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <CardTitle className="font-serif text-xl">{leader.name}</CardTitle>
-                    <Badge variant="secondary" className="mt-2">
-                      {leader.position}
-                    </Badge>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{leader.bio}</p>
-                  </CardContent>
-                </Card>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {leadership.map((leader, index) => (
+                <StaggerItem
+                  key={leader.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 30, scale: 0.9 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      transition: { duration: 0.6, delay: index * 0.1 },
+                    },
+                  }}
+                  whileHover={{
+                    y: -8,
+                    scale: 1.03,
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  <Card className="text-center hover:shadow-xl transition-all duration-300 h-full">
+                    <CardHeader className="pb-3">
+                      <div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group">
+                        <Image
+                          src={
+                            leader.image ||
+                            `/placeholder.svg?height=128&width=128&query=Nigerian church leader ${leader.position} professional portrait`
+                          }
+                          alt={leader.name}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <CardTitle className="font-serif text-xl">{leader.name}</CardTitle>
+                      <Badge variant="secondary" className="mt-2">
+                        {leader.position}
+                      </Badge>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{leader.bio}</p>
+                    </CardContent>
+                  </Card>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </section>
+      )}
+
+      {/* Donations */}
+      <DonationsSection />
     </div>
   )
 }
