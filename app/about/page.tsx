@@ -30,10 +30,14 @@ export default async function AboutPage() {
     title: "Our Journey of Faith",
     content: "Founded with a heart for community and a passion for God's word, our church has been a beacon of hope and love.",
     timeline: [
-      { year: "1995", event: "Church founded with 25 founding members in a small community hall.", images: ["/church1.jpeg"] },
-      { year: "2000", event: "Built our first permanent sanctuary to accommodate our growing congregation.", images: ["/images/timeline/2000-sanctuary.jpg"] },
-      { year: "2010", event: "Launched community outreach programs serving over 500 families annually.", images: ["/images/timeline/2010-outreach.jpg"] },
-      { year: "2020", event: "Adapted to digital ministry during the pandemic, reaching people worldwide.", images: ["/images/timeline/2020-digital.jpg"] }
+      { year: "1995", event: "Church founded with 25 founding members in a small community hall.",
+         images: ["/church1.jpeg"] },
+      { year: "2000", event: "Built our first permanent sanctuary to accommodate our growing congregation.", 
+        images: ["/church2.jpg"] },
+      { year: "2010", event: "Launched community outreach programs serving over 500 families annually.",
+         images: ["/church3.jpg"] },
+      { year: "2020", event: "Adapted to digital ministry during the pandemic, reaching people worldwide.", 
+        images: ["/church4.jpg"] }
     ]
   }
   const values = [
