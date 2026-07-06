@@ -176,7 +176,12 @@ export function HeroSlideshow() {
                     variant="outline"
                     className="bg-white/10 border-white/30 text-white hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
                   >
-                    <Link href="/livestream">Watch Online</Link>
+                    <a href="/#contact" onClick={(e) => {
+                      if (window.location.pathname === '/') {
+                        e.preventDefault()
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                      }
+                    }}>Join Us Today</a>
                   </Button>
                 </motion.div>
               </motion.div>

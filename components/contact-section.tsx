@@ -49,7 +49,7 @@ export function ContactSection() {
   }
 
   return (
-    <section className="py-16 bg-secondary">
+    <section id="contact" className="py-16 bg-secondary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-12">
           <SectionHeader

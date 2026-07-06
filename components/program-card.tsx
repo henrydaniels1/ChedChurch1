@@ -27,7 +27,11 @@ export function ProgramCard({ program }: ProgramCardProps) {
       }}
       whileTap={{ scale: 0.98 }}
     >
-      <Card className="h-full hover:shadow-xl transition-all duration-300 border border-1 border-gray-200 shadow-lg bg-card/80 backdrop-blur-sm">
+      <Card className="h-full transition-all duration-300 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-white/5 backdrop-blur-xl hover:bg-white/10 hover:border-white/20 hover:shadow-[0_16px_48px_rgba(139,92,246,0.25)] relative overflow-hidden group">
+        {/* Glass shimmer top highlight */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+        {/* Subtle inner glow on hover */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-purple-500/5 via-transparent to-amber-500/5 pointer-events-none" />
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <CardTitle className="font-serif text-xl">{program.name}</CardTitle>
