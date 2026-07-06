@@ -30,10 +30,10 @@ export default async function AboutPage() {
     title: "Our Journey of Faith",
     content: "Founded with a heart for community and a passion for God's word, our church has been a beacon of hope and love.",
     timeline: [
-      { year: "1995", event: "Church founded with 25 founding members in a small community hall.", images: [] as string[] },
-      { year: "2000", event: "Built our first permanent sanctuary to accommodate our growing congregation.", images: [] as string[] },
-      { year: "2010", event: "Launched community outreach programs serving over 500 families annually.", images: [] as string[] },
-      { year: "2020", event: "Adapted to digital ministry during the pandemic, reaching people worldwide.", images: [] as string[] }
+      { year: "1995", event: "Church founded with 25 founding members in a small community hall.", images: ["/church1.jpeg"] },
+      { year: "2000", event: "Built our first permanent sanctuary to accommodate our growing congregation.", images: ["/images/timeline/2000-sanctuary.jpg"] },
+      { year: "2010", event: "Launched community outreach programs serving over 500 families annually.", images: ["/images/timeline/2010-outreach.jpg"] },
+      { year: "2020", event: "Adapted to digital ministry during the pandemic, reaching people worldwide.", images: ["/images/timeline/2020-digital.jpg"] }
     ]
   }
   const values = [
@@ -140,13 +140,8 @@ export default async function AboutPage() {
                     },
                   }}
                   whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                  className="flex items-start space-x-6"
+                  className="flex items-start"
                 >
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center transform hover:scale-110 transition-transform duration-300">
-                      <span className="text-primary-foreground font-bold text-sm">{event.year.slice(-2)}</span>
-                    </div>
-                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="bg-card rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                       <div className="flex items-start space-x-4">
@@ -154,17 +149,25 @@ export default async function AboutPage() {
                           <h3 className="font-serif font-semibold text-lg text-foreground mb-2">{event.year}</h3>
                           <p className="text-muted-foreground leading-relaxed">{event.event}</p>
                         </div>
-                        <div className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden">
-                          {event.images?.length ? (
+                        <div className="flex-shrink-0 w-20 h-20 rounded-full overflow-hidden">
+                          {event.images?.length === 1 ? (
+                            <Image
+                              src={event.images[0]}
+                              alt={`Church in ${event.year}`}
+                              width={80}
+                              height={80}
+                              className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                            />
+                          ) : event.images?.length > 1 ? (
                             <div className="grid grid-cols-2 grid-rows-2 gap-[2px] w-20 h-20">
                               {event.images.slice(0, 4).map((imgUrl, i) => (
                                 <Image
                                   key={i}
                                   src={imgUrl}
                                   alt={`Church in ${event.year} image ${i}`}
-                                  width={70}
-                                  height={70}
-                                  className="w-20 h-20 object-cover hover:scale-110 transition-transform duration-300"
+                                  width={40}
+                                  height={40}
+                                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                                 />
                               ))}
                             </div>

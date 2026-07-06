@@ -2,22 +2,15 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Phone, Mail, MapPin, Instagram, Youtube, Twitter, Facebook, CheckCircle, AlertCircle } from "lucide-react"
+import { Phone, Mail, MapPin, CheckCircle, AlertCircle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { SectionHeader } from "@/components/section-header"
 import { AnimatedSection } from "@/components/animated-section"
-import { contactInfo, socialLinks } from "@/lib/contact"
+import { contactInfo } from "@/lib/contact"
 import { sendContactEmail } from "@/app/actions/contact"
-
-const socials = [
-  { href: socialLinks.facebook, icon: Facebook, label: "Facebook" },
-  { href: socialLinks.instagram, icon: Instagram, label: "Instagram" },
-  { href: socialLinks.youtube, icon: Youtube, label: "YouTube" },
-  { href: socialLinks.twitter, icon: Twitter, label: "Twitter" },
-].filter((s) => s.href)
 
 const emptyForm = { name: "", email: "", company: "", message: "" }
 
@@ -94,22 +87,7 @@ export function ContactSection() {
               ))}
             </div>
 
-            {socials.length > 0 && (
-              <div className="flex gap-4 pt-2">
-                {socials.map(({ href, icon: Icon, label }) => (
-                  <Link
-                    key={label}
-                    href={href!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                    aria-label={label}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </Link>
-                ))}
-              </div>
-            )}
+
           </div>
 
           {/* Contact Form */}
