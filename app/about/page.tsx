@@ -8,6 +8,7 @@ import type { LeadershipMember } from "@/lib/types"
 import { ParallaxImage } from "@/components/parallax-image"
 import { StaggerContainer, StaggerItem } from "@/components/stagger-container"
 import { DonationsSection } from "@/components/donations-section"
+import { ContactSection } from "@/components/contact-section"
 
 async function getLeadership(): Promise<LeadershipMember[]> {
   try {
@@ -302,6 +303,9 @@ export default async function AboutPage() {
 
       {/* Donations */}
       <DonationsSection />
+
+      {/* Contact */}
+      <ContactSection />
     </div>
   )
 }
